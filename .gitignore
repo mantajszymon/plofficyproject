@@ -1,5 +1,6 @@
 target/
 !.mvn/wrapper/maven-wrapper.jar
+/home/szymon/work/workspaces/OfficeProject/ploffice/src/main/resources/application.properties
 
 ### STS ###
 .apt_generated

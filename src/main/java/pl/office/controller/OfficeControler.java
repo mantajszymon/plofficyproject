@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class OfficeControler {
 	
-	@PostMapping
+	@PostMapping("/index")
 	public String index(Model model)
 	{
 		return "index";
