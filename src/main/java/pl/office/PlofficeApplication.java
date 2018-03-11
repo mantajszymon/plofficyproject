@@ -1,12 +1,13 @@
-package pl.office.application;
+package pl.office;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@ComponentScan(basePackages={"pl.office"})
+
 @SpringBootApplication
 public class PlofficeApplication extends SpringBootServletInitializer{
 
