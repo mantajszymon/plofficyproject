@@ -36,8 +36,14 @@ public class User implements Serializable{
 	@Column(name="role")
 	private String role;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private UserDetails userDetails;
+	
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Address address;
+	
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private UserTypeDetails userTypeDetail;
 	
 	public String getPassword() {
 		return password;
@@ -90,7 +96,34 @@ public class User implements Serializable{
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", email=" + email + ", username=" + username + ", password=" + password + ", status="
-				+ status + ", role=" + role + "]";
+				+ status + ", role=" + role + ", userDetails=" 
+				+ userDetails.toString() 
+				+ ", address=" + address.toString() 
+				+ "userTypeDetail= " + userTypeDetail.toString() + "]";
+	}
+
+	public UserDetails getUserDetails() {
+		return userDetails;
+	}
+
+	public void setUserDetails(UserDetails userDetails) {
+		this.userDetails = userDetails;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public UserTypeDetails getUserTypeDetails() {
+		return userTypeDetail;
+	}
+
+	public void setUserTypeDetails(UserTypeDetails userTypeDetail) {
+		this.userTypeDetail = userTypeDetail;
 	}
 
 }

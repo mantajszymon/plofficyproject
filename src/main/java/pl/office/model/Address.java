@@ -31,8 +31,8 @@ public class Address {
 	private String nrDomu;
 	
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "address")
-	private UserDetails userDetails;
+/*	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "address")
+	private UserDetails userDetails;*/
 
 	public String getMiasto() {
 		return miasto;
@@ -82,13 +82,27 @@ public class Address {
 		this.nrDomu = nrDomu;
 	}
 
-	public UserDetails getUserDetails() {
+	@Override
+	public String toString() {
+		return "Address [miasto=" + miasto + ", kraj=" + kraj + ", kodPocztowy=" + kodPocztowy + ", ulica=" + ulica
+				+ ", nrUlicy=" + nrUlicy + ", nrDomu=" + nrDomu + "]";
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+/*	public UserDetails getUserDetails() {
 		return userDetails;
 	}
 
 	public void setUserDetails(UserDetails userDetails) {
 		this.userDetails = userDetails;
-	}
+	}*/
 	
 
 }

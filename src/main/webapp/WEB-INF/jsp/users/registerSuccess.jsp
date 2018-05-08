@@ -6,8 +6,7 @@
 <title>Dodawanie uzytkownika</title>
 </head>
 <body>
-DODANO
-
+Użytkownik został dodany.
 <form action = "/" method="POST">
 <button type="submit">POWROT</button>
 </form>

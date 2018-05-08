@@ -1,14 +1,10 @@
 package pl.office.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 @Entity(name = "PLOFFICE_USER_DETAILS")
 public class UserDetails {
@@ -23,8 +19,6 @@ public class UserDetails {
 	private String nazwisko;
 	@Column(name="PESEL")
 	private Long PESEL;
-	@Column(name="nr_indeksu")
-	private Long nrIndeksu;
 	@Column(name="nr_tel_prywatny")
 	private Long nrTelefonuPrywatny;
 	@Column(name="nr_tel_sluzbowy")
@@ -34,14 +28,6 @@ public class UserDetails {
 	@Column(name="typ")
 	private String typ;
 	
-	
-	@OneToOne
-	@JoinColumn(name = "user_id")
-	private User user;
-	
-	@OneToOne
-	@JoinColumn(name = "address_id")
-	private Address adres;
 
 	public String getImie() {
 		return imie;
@@ -67,13 +53,6 @@ public class UserDetails {
 		PESEL = pESEL;
 	}
 
-	public Long getNrIndeksu() {
-		return nrIndeksu;
-	}
-
-	public void setNrIndeksu(Long nrIndeksu) {
-		this.nrIndeksu = nrIndeksu;
-	}
 
 	public Long getNrTelefonuPrywatny() {
 		return nrTelefonuPrywatny;
@@ -106,7 +85,7 @@ public class UserDetails {
 	public void setTyp(String typ) {
 		this.typ = typ;
 	}
-
+/*
 	public User getUser() {
 		return user;
 	}
@@ -121,6 +100,21 @@ public class UserDetails {
 
 	public void setAdres(Address adres) {
 		this.adres = adres;
+	}*/
+
+	@Override
+	public String toString() {
+		return "UserDetails [imie=" + imie + ", nazwisko=" + nazwisko + ", PESEL=" + PESEL + ", nrTelefonuPrywatny="
+				+ nrTelefonuPrywatny + ", nrTelefonuSluzbowy=" + nrTelefonuSluzbowy + ", plec=" + plec + ", typ=" + typ
+				+ "]";
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	

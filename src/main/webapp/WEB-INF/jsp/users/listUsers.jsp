@@ -13,10 +13,11 @@
 			<th>EMAIL</th>
 			<th>STATUS</th>
 			<th>EDYCJA</th>
+			<th>USUŃ</th>
 		<tr>
 		<c:forEach items="${listOfAllUsers}" var="user">
 				<tr>
-					<td>${user.username}</td>
+					<td><a href="/podgladUzytkownika/${user.id}">${user.username}</a></td>
 					<td>${user.email}</td>
 					<td><c:if test="${user.status == 1}">
 							<form action="/changeStatus" method="POST">
@@ -33,6 +34,12 @@
 					<td>
 						<form action="/editUser" method="GET">
 							<button type="submit">E</button>
+							<input type="hidden" value="${user.id}" name="id"/>
+						</form>
+					</td>
+					<td>
+					<form action="/usunUzytkownika/${user.id}" method="POST">
+							<button type="submit">X</button>
 							<input type="hidden" value="${user.id}" name="id"/>
 						</form>
 					</td>
