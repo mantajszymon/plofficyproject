@@ -1,5 +1,6 @@
 package pl.office.controller;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.office.model.Address;
+import pl.office.model.PlanZajec;
 import pl.office.model.User;
 import pl.office.model.UserDetails;
 import pl.office.model.UserTypeDetails;
@@ -103,7 +105,9 @@ public class UserController {
 		if (session.getAttribute("user") != null) {
 			User user = (User) session.getAttribute("user");
 			UserTypeDetails uTD = new UserTypeDetails();
+			List<PlanZajec> zajecia = new LinkedList<PlanZajec>();
 			user.setUserTypeDetails(uTD);
+			user.setPlanZajec(zajecia);
 			LOGGER.info("TO JEST NASZ UZYTKOWNIK: " + user.toString());
 			model.addAttribute("typ", user.getUserDetails().getTyp());
 			model.addAttribute("user", user);

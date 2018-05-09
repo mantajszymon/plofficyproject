@@ -35,8 +35,8 @@
 			
 			<td>Wybierz role:</td>
 			<td><form:select path="role">
-						<form:option value="ADMIN">ADMIN</form:option>
 						<form:option value="USER">USER</form:option>
+						<form:option value="ADMIN">ADMIN</form:option>
 					</form:select></td>
 			
 			<tr>

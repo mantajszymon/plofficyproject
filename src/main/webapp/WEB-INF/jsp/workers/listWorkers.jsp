@@ -1,12 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>Lista studentów</title>
+<title>Lista pracowników</title>
 </head>
 <body>
+	<form:form action="/filtrujPracownikow" modelAttribute="filtr">
+		<table>
+			<tr>
+				<th>Imię</th>
+				<th>Nazwisko</th>
+				<th>Identyfikator</th>
+			</tr>
+			<tr>
+				<td><form:input path="imie" value=""/></td>
+				<td><form:input path="nazwisko" value=""/></td>
+				<td><form:input path="identyfikator" value=""/></td>
+			</tr>
+		</table>
+		<button type="submit">Filtruj</button>
+	</form:form>
 	<table>
 		<tr>
 			<th>Imię i nazwisko</th>

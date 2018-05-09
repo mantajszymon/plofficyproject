@@ -12,12 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.office.model.User;
 import pl.office.repository.AddressRepository;
 import pl.office.repository.UserDetailsRepository;
 import pl.office.repository.UserRepository;
+import pl.office.services.Filtr;
 
 @Controller
 public class StudentController {
@@ -35,14 +35,15 @@ public class StudentController {
 
 	@PostMapping("/students")
 	public String listStudents(Model model) {
+		Filtr filtr = new Filtr();
 		List<User> listaUserow = userRepo.findAll();
 		List<User> listaStudentow = listaUserow.stream().filter(u -> u.getUserDetails().getTyp().equals("student"))
 				.collect(Collectors.toList());
-
+		model.addAttribute("filtr", filtr);
 		model.addAttribute("listaStudentow", listaStudentow);
 		return "students/listStudents";
 	}
-
+	
 	@GetMapping("/podgladStudenta/{id}")
 	public String podlgadStudenta(Model model, @PathVariable("id") String id) {
 		Optional<User> student = userRepo.findById(Long.parseLong(id));

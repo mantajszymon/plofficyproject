@@ -1,6 +1,7 @@
 package pl.office.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity(name="PLOFFICE_USER")
@@ -44,6 +46,9 @@ public class User implements Serializable{
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private UserTypeDetails userTypeDetail;
+	
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private List<PlanZajec> planZajec;
 	
 	public String getPassword() {
 		return password;
@@ -125,5 +130,15 @@ public class User implements Serializable{
 	public void setUserTypeDetails(UserTypeDetails userTypeDetail) {
 		this.userTypeDetail = userTypeDetail;
 	}
+
+	public List<PlanZajec> getPlanZajec() {
+		return planZajec;
+	}
+
+	public void setPlanZajec(List<PlanZajec> planZajec) {
+		this.planZajec = planZajec;
+	}
+
+
 
 }

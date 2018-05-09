@@ -105,6 +105,10 @@
 							<form:option value="8">8</form:option>
 						</form:select></td>
 				</tr>
+				<tr>
+				<td>Numer indeksu:</td>
+				<td><form:input path="UserTypeDetails.nrIndeksu" value = ""/></td>
+				</tr>
 			</c:if>
 			<tr>
 				<td><input type="submit" value="Dodaj uzytkownika" /></td>

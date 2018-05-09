@@ -83,6 +83,18 @@
 		</tr>
 	</table>
 	</form:form>
+	<table border="1">
+	  <c:forEach items="${planZajec}" var="zajecia">
+	    <tr>
+	      <td><c:out value="${zajecia.event}" /></td>
+	      <td><c:out value="${zajecia.staffSurname}" /></td>
+	    </tr>
+	  </c:forEach>
+	</table>
+	<form:form action="/dodajZajeciaPrepare" method="POST">
+		<input type="hidden" name="workerId" value="${workerId}"/>
+		<input type="submit" value="Dodaj zajęcia"/>
+	</form:form>
 	<form:form action="/" method="POST">
 		<input type="submit" value="POWRÓT" />
 	</form:form>
