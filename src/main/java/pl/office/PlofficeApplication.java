@@ -13,6 +13,7 @@ public class PlofficeApplication extends SpringBootServletInitializer{
 		return application.sources(PlofficeApplication.class);
 	}
 	
+	
 	public static void main(String[] args) {
 		SpringApplication.run(PlofficeApplication.class, args);
 	}

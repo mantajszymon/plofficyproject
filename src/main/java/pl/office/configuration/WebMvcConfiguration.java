@@ -1,12 +1,18 @@
-package pl.office.configuration;
+/*package pl.office.configuration;
 
-/*@Configuration
-public class WebMvcConfiguration {
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+@Configuration
+@EnableWebMvc
+public class WebMvcConfiguration implements WebMvcConfigurer {
 
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		return bCryptPasswordEncoder;
+	}
+
 }
-	
-}*/
+*/
