@@ -6,41 +6,55 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>Lista pracowników</title>
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext"
+	rel="stylesheet">
+<link type="text/css" rel="stylesheet" href="styles/styles.css" />
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Pracownicy</title>
 </head>
 <body>
-	<form:form action="/filtrujPracownikow" modelAttribute="filtr">
-		<table>
-			<tr>
-				<th>Imię</th>
-				<th>Nazwisko</th>
-				<th>Identyfikator</th>
-			</tr>
-			<tr>
-				<td><form:input path="imie" value=""/></td>
-				<td><form:input path="nazwisko" value=""/></td>
-				<td><form:input path="identyfikator" value=""/></td>
-			</tr>
-		</table>
-		<button type="submit">Filtruj</button>
-	</form:form>
-	<table>
-		<tr>
-			<th>Imię i nazwisko</th>
-			<th>Rodzaj pracy</th>
-			<th>Identyfikator</th>
-		<tr>
-			<c:forEach items="${listaPracownikow}" var="pracownik">
+	<div class="page-wrap">
+		<header>
+		<div id="head">
+			<p>Lista pracownikow</p>
+		</div>
+		</header>
+		<center>
+			<form:form action="/filtrujPracownikow" modelAttribute="filtr">
+				<table>
+					<tr>
+						<th>Imię</th>
+						<th>Nazwisko</th>
+						<th>Identyfikator</th>
+					</tr>
+					<tr>
+						<td><form:input path="imie" value="" /></td>
+						<td><form:input path="nazwisko" value="" /></td>
+						<td><form:input path="identyfikator" value="" /></td>
+					</tr>
+				</table>
+				<button type="submit">Filtruj</button>
+			</form:form>
+			<table border="1">
 				<tr>
-					<td><a href="/podgladPracownika/${pracownik.id}">${pracownik.userDetails.imie}
-							${pracownik.userDetails.nazwisko}</a></td>
-					<td>${pracownik.userDetails.typ}</td>
-					<td>${pracownik.userTypeDetails.identyfikator}</td>
-				</tr>
-			</c:forEach>
-	</table>
-	<form action="/" method="POST">
-		<button type="submit">Powrót</button>
-	</form>
+					<th>Imię i nazwisko</th>
+					<th>Rodzaj pracy</th>
+					<th>Identyfikator</th>
+				<tr>
+					<c:forEach items="${listaPracownikow}" var="pracownik">
+						<tr>
+							<td><a href="/podgladPracownika/${pracownik.id}">${pracownik.userDetails.imie}
+									${pracownik.userDetails.nazwisko}</a></td>
+							<td>${pracownik.userDetails.typ}</td>
+							<td>${pracownik.userTypeDetails.identyfikator}</td>
+						</tr>
+					</c:forEach>
+			</table>
+			<form action="/" method="POST">
+				<button type="submit">Powrót</button>
+			</form>
+		</center>
+	</div>
 </body>
 </html>

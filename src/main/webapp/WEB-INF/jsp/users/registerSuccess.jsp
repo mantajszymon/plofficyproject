@@ -3,12 +3,24 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext"
+	rel="stylesheet">
+<link type="text/css" rel="stylesheet" href="styles/styles.css" />
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Dodawanie uzytkownika</title>
 </head>
 <body>
-Użytkownik został dodany.
-<form action = "/" method="POST">
-<button type="submit">POWROT</button>
-</form>
+	<div class="page-wrap">
+		<header>
+		<div id="head">
+			<p>Dodawanie uzytkownika</p>
+		</div>
+		</header>
+		<center><b>Użytkownik został dodany.</b></center>
+		<form action="/" method="POST">
+			<button type="submit">POWROT</button>
+		</form>
+	</div>
 </body>
 </html>

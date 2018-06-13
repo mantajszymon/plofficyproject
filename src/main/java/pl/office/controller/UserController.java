@@ -11,6 +11,7 @@ import org.apache.commons.validator.routines.EmailValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -47,9 +48,9 @@ public class UserController {
 
 	@Autowired
 	private UserTypeDetailsRepository userTypeDetailsRepo;
-	/*
-	 * @Autowired private BCryptPasswordEncoder bCryptPasswordEncoder;
-	 */
+
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
 	@RequestMapping("/")
 	public String homePage(Model model) {
@@ -126,6 +127,7 @@ public class UserController {
 		return "users/registerSuccess";
 	}
 
+	
 	@RequestMapping("/users")
 	public String showAllUsers(Model model) {
 		List<User> listOfAllUsers = userRepo.findAll();
@@ -157,7 +159,7 @@ public class UserController {
 		Address adres = new Address();
 		UserTypeDetails uDT = new UserTypeDetails();
 		user.setEmail("mantajszymon@gmail.com");
-		user.setPassword("123");
+		user.setPassword(passwordEncoder.encode("123"));
 		user.setRole("ADMIN");
 		user.setStatus("1");
 		user.setUsername("smantaj");
@@ -188,9 +190,14 @@ public class UserController {
 		user.setUserDetails(uD);
 		user.setUserTypeDetails(uDT);
 		userRepo.save(user);
-		return "redirect:/";
+		return "redirect:/login";
 	}
 
+	@RequestMapping("/login")
+	public String loginPage(Model model){
+		return "login";
+	}
+	
 	@PostMapping("/register/success")
 	public String registerSuccess(Model model) {
 		List<User> listOfAllUsers = userRepo.findAll();

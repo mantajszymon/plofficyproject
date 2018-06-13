@@ -1,4 +1,4 @@
-/*package pl.office.security;
+package pl.office.security;
 
 import javax.sql.DataSource;
 
@@ -38,20 +38,18 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		http.authorizeRequests().antMatchers("/").permitAll().antMatchers("/login").permitAll()
-				.antMatchers("/registration").permitAll().anyRequest().authenticated().and().csrf().disable()
-				.formLogin().loginPage("/login").failureUrl("/login?error=true").defaultSuccessUrl("/test")
+		http.authorizeRequests().antMatchers("/").permitAll().antMatchers("/secret").permitAll().antMatchers("/login")
+				.permitAll().antMatchers("/registration").permitAll().anyRequest().authenticated().and().csrf()
+				.disable().formLogin().loginPage("/login").failureUrl("/login?error=true").defaultSuccessUrl("/test")
 				.usernameParameter("username").passwordParameter("password").and().logout()
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/");
-		
+
 		http.authorizeRequests().antMatchers("/*").permitAll();
 	}
-	
+
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-	    web
-	       .ignoring()
-	       .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
+		web.ignoring().antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
+	}
+
 }
-	
-}*/

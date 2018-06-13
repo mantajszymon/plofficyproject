@@ -4,11 +4,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<link href="styles/styles.css" rel="stylesheet" type="text/css" />
-<script src="scripts/scripts.js"></script>
 <head>
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext"
+	rel="stylesheet">
+<link type="text/css" rel="stylesheet" href="styles/styles.css" />
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Dodawanie uzytkownika</title>
 </head>
 <body>
+	<div class="page-wrap">
+		<header>
+		<div id="head">Dodawanie zajęć</div>
+		</header>
 <form:form action="#" modelAttribute="pracownik">
 	<table>
 		<tr>
@@ -98,5 +106,6 @@
 	<form:form action="/" method="POST">
 		<input type="submit" value="POWRÓT" />
 	</form:form>
+	</div>
 </body>
 </html>
