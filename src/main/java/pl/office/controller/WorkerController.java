@@ -52,7 +52,7 @@ public class WorkerController {
 		return "workers/listWorkers";
 	}
 
-	@GetMapping("/podgladPracownika/{id}")
+	@GetMapping("/workers/podgladPracownika/{id}")
 	public String podlgadPracownika(Model model, @PathVariable("id") String id) {
 		Optional<User> pracownik = userRepo.findById(Long.parseLong(id));
 		
@@ -63,7 +63,7 @@ public class WorkerController {
 	}
 	
 	
-	@PostMapping("/dodajZajeciaPrepare")
+	@PostMapping("/workers/dodajZajeciaPrepare")
 	public String dodajZajeciaPOST(@RequestParam("workerId") Long id, Model model)
 	{	
 		PlanZajecWrapper wrapper = new PlanZajecWrapper();
@@ -81,7 +81,7 @@ public class WorkerController {
 		return "workers/addLesson";
 	}
 	
-	@PostMapping("/dodajZajecia")
+	@PostMapping("/workers/dodajZajecia")
 	public String dodajZajeciaGET(@ModelAttribute("planZajecForm") PlanZajecForm zajeciaForm, @RequestParam("workerId") Long workerId, Model model)
 	{
 		IntegrateWrapperWithPlanZajec integrateTool = new IntegrateWrapperWithPlanZajec();

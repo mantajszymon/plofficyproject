@@ -8,7 +8,7 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext"
 	rel="stylesheet">
-<link type="text/css" rel="stylesheet" href="styles/styles.css" />
+<link type="text/css" rel="stylesheet" href="/styles/styles.css" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Dodawanie uzytkownika</title>
 </head>
@@ -19,18 +19,17 @@
 			<p>Dodawanie uzytkownika</p>
 		</div>
 		</header>
-		<c:if test="${exists}">
-		UZYTKOWNIK ISTNIEJE W BZIE
-	</c:if>
-		<c:if test="${isValidEmail eq false}">
-		Podaj prawidłowy email
+		<c:if test="${errorResult}">
+			<p>${errorResult}</p>
 		</c:if>
 
 
-		<form:form action="/registerStep2" method="POST" modelAttribute="user">
+		<form:form action="/register/registerStep2" method="POST"
+			modelAttribute="user">
 			<form:hidden path="username" />
 			<form:hidden path="email" />
 			<form:hidden path="role" />
+			<form:hidden path="password" />
 			<form:hidden path="userDetails.imie" />
 			<form:hidden path="userDetails.nazwisko" />
 			<form:hidden path="userDetails.PESEL" />

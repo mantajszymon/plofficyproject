@@ -27,22 +27,22 @@ public class MainController {
 	
 	
 	
-	@PostMapping("/filtrujStudentow")
+	@PostMapping("/students/filtrujStudentow")
 	public String filtrujStudentow(@ModelAttribute("filtr") Filtr filtr, HttpServletRequest request, Model model) {
 		
 		LOGGER.info(filtr.toString());
 		SearchResults szukaj = new SearchResults();
 		List<User> listaFiltrowana = szukaj.searchStudents(filtr, userRepo);
 		model.addAttribute("listaStudentow", listaFiltrowana);
-		return "/students/listStudents";
+		return "students/listStudents";
 	}
 
-	@PostMapping("/filtrujPracownikow")
+	@PostMapping("/workers/filtrujPracownikow")
 	public String filtrujPracownikow(Filtr filtr, Model model) {
 		SearchResults szukaj = new SearchResults();
 		List<User> listaFiltrowana = szukaj.searchWorkers(filtr, userRepo);
 		model.addAttribute("listaPracownikow", listaFiltrowana);
-		return "/workers/listWorkers";
+		return "workers/listWorkers";
 	}
 
 }

@@ -44,11 +44,11 @@ public class StudentController {
 		return "students/listStudents";
 	}
 	
-	@GetMapping("/podgladStudenta/{id}")
+	@GetMapping("/students/podgladStudenta/{id}")
 	public String podlgadStudenta(Model model, @PathVariable("id") String id) {
 		Optional<User> student = userRepo.findById(Long.parseLong(id));
 		model.addAttribute("student", student.get());
-		return "/students/viewStudent";
+		return "students/viewStudent";
 	}
 	
 	

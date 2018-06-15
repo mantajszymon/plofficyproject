@@ -8,21 +8,40 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext"
 	rel="stylesheet">
-<link type="text/css" rel="stylesheet" href="styles/styles.css" />
+<link type="text/css" rel="stylesheet" href="/styles/styles.css" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Logowanie</title>
 </head>
 <body>
 	<div class="page-wrap">
 		<header>
-		<div id="head">Login</div>
+		<div id="head"><p>Login</p></div>
 		</header>
-		<form action="/" method="POST">
-			<center>
-				LOGIN:
-				HASŁO:
-				<button type="submit">Zaloguj</button>
-			</center>
+		<form name="#" action="/login" method="POST">
+			<table border="1">
+				<thead>
+					<tr>
+						<th colspan="2">&nbsp;</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Użytkownik:</td>
+						<td><input type="text" name="username" value="" /></td>
+					</tr>
+					<tr>
+						<td>Hasło:</td>
+						<td><input type="password" name="password" /></td>
+					</tr>
+				</tbody>
+			</table>
+			<p>
+				<button type="submit">ZALOGUJ</button>
+			</p>
+			<br>
+			<c:if test="${not empty param.error}">
+				<p style="font-size: 20; color: #FF1C19;">${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}</p>
+			</c:if>
 		</form>
 	</div>
 </body>

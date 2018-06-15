@@ -1,17 +1,18 @@
 package pl.office.controller;
 
+import java.security.Principal;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.validator.routines.EmailValidator;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,6 +32,7 @@ import pl.office.repository.AddressRepository;
 import pl.office.repository.UserDetailsRepository;
 import pl.office.repository.UserRepository;
 import pl.office.repository.UserTypeDetailsRepository;
+import pl.office.services.ValidateUser;
 
 @Controller
 public class UserController {
@@ -50,84 +52,101 @@ public class UserController {
 	private UserTypeDetailsRepository userTypeDetailsRepo;
 
 	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
+	private PasswordEncoder passwordEncoder;
 
-	@RequestMapping("/")
-	public String homePage(Model model) {
+	@RequestMapping({ "/homepage" })
+	public String homePage(Model model, HttpServletRequest req, Principal principal, HttpSession session) {
+
+		Principal currentUser = req.getUserPrincipal();
+		if (currentUser != null) {
+			String username = currentUser.getName();
+			User userLogged = userRepo.findByUsername(username);
+			session.setAttribute("userLogged", userLogged);
+		}
+		/*
+		 * Principal currentUser = req.getUserPrincipal(); if (currentUser !=
+		 * null) { LOGGER.debug(currentUser.getName()); }
+		 */
 		return "homepage";
 	}
 
 	@GetMapping("/register")
-	public String registerUser(Model model) {
+	public String registerUser(Model model, HttpSession session) {
+		
+		if (!isAdminUser(session)) {
+			return "denied";
+		}
+		
 		User user = new User();
 		UserDetails uD = new UserDetails();
 		Address adres = new Address();
+		UserTypeDetails uTD = new UserTypeDetails();
+		List<PlanZajec> zajecia = new LinkedList<PlanZajec>();
+		user.setPlanZajec(zajecia);
 		user.setAddress(adres);
 		user.setUserDetails(uD);
+		user.setUserTypeDetails(uTD);
 
 		model.addAttribute("user", user);
 		return "users/registerStep1";
 	}
 
-	@PostMapping("/registerStep1")
+	@PostMapping("/register/registerStep1")
 	public String registerUserPOST(Model model, @ModelAttribute("user") User user, BindingResult bindRes,
 			HttpSession session) {
-		LOGGER.info("WPADLEM DO TEJ METODY STEP1");
-		List<User> listOfUsers = userRepo.findAll();
-		String exists = "false";
-		boolean isValidEmail = EmailValidator.getInstance().isValid(user.getEmail());
-		boolean noSuchUsername = listOfUsers.stream()
-				.filter(u -> u.getUsername().trim().equalsIgnoreCase(user.getUsername())).collect(Collectors.toList())
-				.isEmpty();
-		boolean noSuchEmail = listOfUsers.stream().filter(u -> u.getEmail().trim().equalsIgnoreCase(user.getEmail()))
-				.collect(Collectors.toList()).isEmpty();
-
-		if (!isValidEmail) {
-			model.addAttribute("isValidEmail", isValidEmail);
-			return "users/registerStep1";
+		if (!isAdminUser(session)) {
+			return "denied";
 		}
-
-		if (noSuchEmail && noSuchUsername) {
-			// LOGGER.info("JESTEM TUTAJ W IFIE");
+		
+		LOGGER.info("WPADLEM DO TEJ METODY STEP1");
+		String errorResult = new ValidateUser().validateAllUserFields(user, userRepo);
+		
+		if (StringUtils.isBlank(errorResult)) {
+			user.setPassword(passwordEncoder.encode(user.getPassword()));
 			session.setAttribute("user", user);
 			model.addAttribute("user", user);
-			return "redirect:/registerStep2";
+			return "redirect:/register/registerStep2";
 		} else {
-			exists = "true";
+			model.addAttribute("errorResult", errorResult);
+			return "users/registerStep1";
 		}
-
-		LOGGER.info("Proba dodania uzytkownika ktory istnieje w bazie.");
-		model.addAttribute("exists", exists);
-		return "users/registerStep1";
 	}
 
-	@GetMapping("/registerStep2")
+	@GetMapping("/register/registerStep2")
 	public String registerStep2GET(Model model, HttpSession session) {
+		
+		if (!isAdminUser(session)) {
+			return "denied";
+		}
+		
 		if (session.getAttribute("user") != null) {
 			User user = (User) session.getAttribute("user");
-			UserTypeDetails uTD = new UserTypeDetails();
-			List<PlanZajec> zajecia = new LinkedList<PlanZajec>();
-			user.setUserTypeDetails(uTD);
-			user.setPlanZajec(zajecia);
-			LOGGER.info("TO JEST NASZ UZYTKOWNIK: " + user.toString());
+			/*
+			 * List<PlanZajec> zajecia = new LinkedList<PlanZajec>();
+			 * user.setPlanZajec(zajecia);
+			 */
 			model.addAttribute("typ", user.getUserDetails().getTyp());
 			model.addAttribute("user", user);
 			return "users/registerStep2";
 		} else
-			return "redirect:/";
+			return "redirect:/homepage";
 	}
 
-	@PostMapping("/registerStep2")
+	@PostMapping("/register/registerStep2")
 	public String registerStep2POST(Model model, HttpSession session, @ModelAttribute("user") User user,
 			BindingResult bindRes) {
-
+		
+		if (!isAdminUser(session)) {
+			return "denied";
+		}
+		
+		user.setStatus("1");
 		userRepo.save(user);
 		LOGGER.info("Użytkownik dodany do bazy: " + user.toString());
 		session.removeAttribute("user");
 		return "users/registerSuccess";
 	}
 
-	
 	@RequestMapping("/users")
 	public String showAllUsers(Model model) {
 		List<User> listOfAllUsers = userRepo.findAll();
@@ -135,8 +154,12 @@ public class UserController {
 		return "users/listUsers";
 	}
 
-	@GetMapping("/editUser")
-	public String editUser(Model model, @RequestParam Long id) {
+	@GetMapping("/admin/editUser")
+	public String editUser(Model model, HttpSession session, @RequestParam Long id) {
+
+		if (!isAdminUser(session)) {
+			return "denied";
+		}
 		Optional<User> userOPT = userRepo.findById(id);
 		User user = userOPT.get();
 		LOGGER.info("DAUDSOADA: " + user.toString());
@@ -144,60 +167,75 @@ public class UserController {
 		return "users/editUser";
 	}
 
-	@PostMapping("/editUser")
-	public String editUserSuccess(Model model, @ModelAttribute("user") User user) {
+	@PostMapping("/admin/editUser")
+	public String editUserSuccess(Model model, HttpSession session, @ModelAttribute("user") User user) {
+
+		if (!isAdminUser(session)) {
+			return "denied";
+		}
+
 		userRepo.save(user);
 		LOGGER.info("Użytkownik " + user.getUsername() + " został zmieniony.");
 		model.addAttribute("id", user.getId());
-		return "redirect:/editUser?success=true&id=" + user.getId();
+		return "redirect:/admin/editUser?success=true&id=" + user.getId();
 	}
 
 	@GetMapping("/secret")
 	public String secretMethod(Model model, HttpSession session) {
-		User user = new User();
+		User user = null;
 		UserDetails uD = new UserDetails();
 		Address adres = new Address();
 		UserTypeDetails uDT = new UserTypeDetails();
-		user.setEmail("mantajszymon@gmail.com");
-		user.setPassword(passwordEncoder.encode("123"));
-		user.setRole("ADMIN");
-		user.setStatus("1");
-		user.setUsername("smantaj");
+		user = userRepo.findByEmail("mantajszymon@gmail.com");
+		if (user == null) {
+			user = new User();
+			user.setEmail("mantajszymon@gmail.com");
+			user.setPassword(passwordEncoder.encode("123"));
+			user.setRole("ADMIN");
+			user.setStatus("1");
+			user.setUsername("smantaj");
 
-		uD.setImie("szymon");
-		uD.setNazwisko("mantaj");
-		uD.setNrTelefonuPrywatny(Long.valueOf(503356204));
-		uD.setNrTelefonuSluzbowy(Long.valueOf(503356204));
-		uD.setPESEL(Long.valueOf("95062006495"));
-		uD.setPlec("M");
-		uD.setTyp("student");
+			uD.setImie("szymon");
+			uD.setNazwisko("mantaj");
+			uD.setNrTelefonuPrywatny(Long.valueOf(503356204));
+			uD.setNrTelefonuSluzbowy(Long.valueOf(503356204));
+			uD.setPESEL(Long.valueOf("95062006495"));
+			uD.setPlec("M");
+			uD.setTyp("student");
 
-		uDT.setNrIndeksu("195012");
-		uDT.setWydzial("EEIA");
-		uDT.setKierunek("Informatyka");
-		uDT.setRok("3");
-		uDT.setSemestr("6");
-		uDT.setStopienStudiow("I");
+			uDT.setNrIndeksu("195012");
+			uDT.setWydzial("EEIA");
+			uDT.setKierunek("Informatyka");
+			uDT.setRok("3");
+			uDT.setSemestr("6");
+			uDT.setStopienStudiow("I");
 
-		adres.setKraj("Polska");
-		adres.setKodPocztowy("95-200");
-		adres.setMiasto("Pabianice");
-		adres.setNrDomu("32");
-		adres.setNrUlicy("14");
-		adres.setUlica("Podlesna");
+			adres.setKraj("Polska");
+			adres.setKodPocztowy("95-200");
+			adres.setMiasto("Pabianice");
+			adres.setNrDomu("32");
+			adres.setNrUlicy("14");
+			adres.setUlica("Podlesna");
 
-		user.setAddress(adres);
-		user.setUserDetails(uD);
-		user.setUserTypeDetails(uDT);
-		userRepo.save(user);
+			user.setAddress(adres);
+			user.setUserDetails(uD);
+			user.setUserTypeDetails(uDT);
+			userRepo.save(user);
+		}
 		return "redirect:/login";
 	}
 
 	@RequestMapping("/login")
-	public String loginPage(Model model){
+	public String loginPage(Model model) {
 		return "login";
 	}
-	
+
+	@RequestMapping("/denied")
+	public String deniedPage(Model model) {
+		return "denied";
+	}
+
+
 	@PostMapping("/register/success")
 	public String registerSuccess(Model model) {
 		List<User> listOfAllUsers = userRepo.findAll();
@@ -205,7 +243,7 @@ public class UserController {
 		return "users/registerSuccess";
 	}
 
-	@PostMapping("/changeStatus")
+	@PostMapping("/users/changeStatus")
 	public String changeStatus(Model model, @RequestParam Long id) {
 		User user = userRepo.findById(id).get();
 		if (!user.getRole().equalsIgnoreCase("ADMIN")) {
@@ -224,8 +262,13 @@ public class UserController {
 		return "users/listUsers";
 	}
 
-	@GetMapping("/usunUzytkownika/{id}")
-	public String deleteUser(Model model, @PathVariable("id") String id) {
+	@RequestMapping("/admin/usunUzytkownika/{id}")
+	public String deleteUser(Model model, HttpSession session, @PathVariable("id") String id) {
+
+		if (!isAdminUser(session)) {
+			return "denied";
+		}
+
 		Optional<User> user = userRepo.findById(Long.parseLong(id));
 		if (user.get().getUserTypeDetails() != null) {
 			Long idUTD = user.get().getUserTypeDetails().getId();
@@ -255,7 +298,18 @@ public class UserController {
 		userRepo.delete(userR);
 		List<User> listOfAllUsers = userRepo.findAll();
 		model.addAttribute("listOfAllUsers", listOfAllUsers);
-		return "users/listUsers";
+		return "redirect:/users";
+	}
+
+	public boolean isAdminUser(HttpSession session) {
+		if (session.getAttribute("userLogged") != null) {
+			User user = (User) session.getAttribute("userLogged");
+			if (user.getStatus().equalsIgnoreCase("admin"))
+				return true;
+			else
+				return false;
+		} else
+			return false;
 	}
 
 }

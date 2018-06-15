@@ -11,7 +11,7 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext"
 	rel="stylesheet">
-<link type="text/css" rel="stylesheet" href="styles/styles.css" />
+<link type="text/css" rel="stylesheet" href="/styles/styles.css" />
 </head>
 <body>
 	<div class="page-wrap">
@@ -20,7 +20,7 @@
 			<p>Dodawanie zajęć</p>
 		</div>
 		</header>
-		<form id="planZajecForm" action="/dodajZajecia" method="POST">
+		<form id="planZajecForm" action="/workers/dodajZajecia" method="POST">
 			<input name="workerId" value="1" type="hidden">
 			<table>
 				<tbody>
@@ -288,7 +288,7 @@
 			</table>
 			<button type="submit">Dodaj zajęcia do planu.</button>
 		</form>
-		<form action="/" method="POST">
+		<form action="/homepage" method="POST">
 			<button type="submit">Powrót</button>
 		</form>
 	</div>

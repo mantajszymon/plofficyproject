@@ -8,7 +8,7 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext"
 	rel="stylesheet">
-<link type="text/css" rel="stylesheet" href="styles/styles.css" />
+<link type="text/css" rel="stylesheet" href="/styles/styles.css" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Dodawanie uzytkownika</title>
 </head>
@@ -20,12 +20,12 @@
 		</div>
 		</header>
 		<c:if test="${exists}">
-		UZYTKOWNIK ISTNIEJE W BZIE
+		Użytkownik o podanym adresie e-mail/loginie istnieje w bazie.
 	</c:if>
 		<c:if test="${isValidEmail eq false}">
 		Podaj prawidłowy email
 		</c:if>
-		<form:form action="/registerStep1" method="POST" modelAttribute="user">
+		<form:form action="/register/registerStep1" method="POST" modelAttribute="user">
 			<table>
 				<tr>
 					<td><form:label path="username">Username:</form:label></td>

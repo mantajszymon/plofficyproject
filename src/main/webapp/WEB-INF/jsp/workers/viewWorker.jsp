@@ -8,7 +8,7 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext"
 	rel="stylesheet">
-<link type="text/css" rel="stylesheet" href="styles/styles.css" />
+<link type="text/css" rel="stylesheet" href="/styles/styles.css" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Dodawanie uzytkownika</title>
 </head>
@@ -99,11 +99,11 @@
 	    </tr>
 	  </c:forEach>
 	</table>
-	<form:form action="/dodajZajeciaPrepare" method="POST">
+	<form:form action="/workers/dodajZajeciaPrepare" method="POST">
 		<input type="hidden" name="workerId" value="${workerId}"/>
 		<input type="submit" value="Dodaj zajęcia"/>
 	</form:form>
-	<form:form action="/" method="POST">
+	<form:form action="/homepage" method="POST">
 		<input type="submit" value="POWRÓT" />
 	</form:form>
 	</div>

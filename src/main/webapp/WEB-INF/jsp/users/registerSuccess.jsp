@@ -6,7 +6,7 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext"
 	rel="stylesheet">
-<link type="text/css" rel="stylesheet" href="styles/styles.css" />
+<link type="text/css" rel="stylesheet" href="/styles/styles.css" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Dodawanie uzytkownika</title>
 </head>
@@ -18,7 +18,7 @@
 		</div>
 		</header>
 		<center><b>Użytkownik został dodany.</b></center>
-		<form action="/" method="POST">
+		<form action="/homepage" method="POST">
 			<button type="submit">POWROT</button>
 		</form>
 	</div>

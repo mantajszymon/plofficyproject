@@ -8,7 +8,7 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext"
 	rel="stylesheet">
-<link type="text/css" rel="stylesheet" href="styles/styles.css" />
+<link type="text/css" rel="stylesheet" href="/styles/styles.css" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Dodawanie uzytkownika</title>
 </head>
@@ -20,7 +20,7 @@
 		</div>
 		</header>
 		<center>
-			<form:form action="/filtrujStudentow" modelAttribute="filtr">
+			<form:form action="/students/filtrujStudentow" modelAttribute="filtr">
 
 				<table id="search">
 					<tr>
@@ -55,14 +55,14 @@
 				<tr>
 					<c:forEach items="${listaStudentow}" var="student">
 						<tr>
-							<td><a href="/podgladStudenta/${student.id}">${student.userDetails.imie}
+							<td><a href="/students/podgladStudenta/${student.id}">${student.userDetails.imie}
 									${student.userDetails.nazwisko}</a></td>
 							<td>${student.userTypeDetails.wydzial}</td>
 							<td>${student.userTypeDetails.nrIndeksu}</td>
 						</tr>
 					</c:forEach>
 			</table>
-			<form action="/" method="POST">
+			<form action="/homepage" method="POST">
 				<button type="submit">Powrót</button>
 			</form>
 		</center>

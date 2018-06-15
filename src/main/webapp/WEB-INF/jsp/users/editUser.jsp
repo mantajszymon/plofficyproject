@@ -8,7 +8,7 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext"
 	rel="stylesheet">
-<link type="text/css" rel="stylesheet" href="styles/styles.css" />
+<link type="text/css" rel="stylesheet" href="/styles/styles.css" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Edycja uzytkownika</title>
 </head>
@@ -23,7 +23,7 @@
 	<c:if test="${isValidEmail eq false}">
 		Podaj prawidłowy email
 		</c:if>
-	<form:form action="/editUser" method="POST" modelAttribute="user">
+	<form:form action="/admin/editUser" method="POST" modelAttribute="user">
 		<form:hidden path="userDetails.id" />
 		<form:hidden path="userTypeDetails.id" />
 		<form:hidden path="address.id" />
@@ -174,7 +174,7 @@
 			</tr>
 		</table>
 	</form:form>
-	<form action="/" method="POST">
+	<form action="/homepage" method="POST">
 		<button type="submit">Powrót</button>
 	</form>
 	</div>

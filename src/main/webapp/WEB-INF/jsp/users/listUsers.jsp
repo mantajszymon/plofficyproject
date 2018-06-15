@@ -7,7 +7,7 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext"
 	rel="stylesheet">
-<link type="text/css" rel="stylesheet" href="styles/styles.css" />
+<link type="text/css" rel="stylesheet" href="/styles/styles.css" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Lista uzytkownikow</title>
 </head>
@@ -29,27 +29,27 @@
 				<tr>
 					<c:forEach items="${listOfAllUsers}" var="user">
 						<tr>
-							<td><a href="/podgladUzytkownika/${user.id}">${user.username}</a></td>
+							<td><a href="/users/podgladUzytkownika/${user.id}">${user.username}</a></td>
 							<td>${user.email}</td>
 							<td><c:if test="${user.status == 1}">
-									<form action="/changeStatus" method="POST">
+									<form action="/users/changeStatus" method="POST">
 										<input type="hidden" name="id" id="id" value="${user.id}" />
 										<button type="submit">DEAKTYWUJ</button>
 									</form>
 								</c:if> <c:if test="${user.status == 0}">
-									<form action="/changeStatus" method="POST">
+									<form action="/users/changeStatus" method="POST">
 										<input type="hidden" name="id" id="id" value="${user.id}" />
 										<button type="submit">AKTYWUJ</button>
 									</form>
 								</c:if></td>
 							<td>
-								<form action="/editUser" method="GET">
+								<form action="/admin/editUser" method="GET">
 									<button type="submit">E</button>
 									<input type="hidden" value="${user.id}" name="id" />
 								</form>
 							</td>
 							<td>
-								<form action="/usunUzytkownika/${user.id}" method="POST">
+								<form action="/admin/usunUzytkownika/${user.id}" method="POST">
 									<button type="submit">X</button>
 									<input type="hidden" value="${user.id}" name="id" />
 								</form>
@@ -60,6 +60,9 @@
 		</center>
 		<form action="/register" method="GET">
 			<button type="submit">DODAJ UZYTKOWNIKA</button>
+		</form>
+		<form action="/homepage" method="GET">
+			<button type="submit">POWRÓT</button>
 		</form>
 	</div>
 </body>

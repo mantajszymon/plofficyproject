@@ -9,7 +9,7 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext"
 	rel="stylesheet">
-<link type="text/css" rel="stylesheet" href="styles/styles.css" />
+<link type="text/css" rel="stylesheet" href="/styles/styles.css" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Pracownicy</title>
 </head>
@@ -21,7 +21,7 @@
 		</div>
 		</header>
 		<center>
-			<form:form action="/filtrujPracownikow" modelAttribute="filtr">
+			<form:form action="/workers/filtrujPracownikow" modelAttribute="filtr">
 				<table>
 					<tr>
 						<th>Imię</th>
@@ -44,14 +44,14 @@
 				<tr>
 					<c:forEach items="${listaPracownikow}" var="pracownik">
 						<tr>
-							<td><a href="/podgladPracownika/${pracownik.id}">${pracownik.userDetails.imie}
+							<td><a href="/workers/podgladPracownika/${pracownik.id}">${pracownik.userDetails.imie}
 									${pracownik.userDetails.nazwisko}</a></td>
 							<td>${pracownik.userDetails.typ}</td>
 							<td>${pracownik.userTypeDetails.identyfikator}</td>
 						</tr>
 					</c:forEach>
 			</table>
-			<form action="/" method="POST">
+			<form action="/homepage" method="POST">
 				<button type="submit">Powrót</button>
 			</form>
 		</center>
