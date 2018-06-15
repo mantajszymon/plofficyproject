@@ -22,7 +22,7 @@
 		<center>
 			<form:form action="/filtrujStudentow" modelAttribute="filtr">
 
-				<table>
+				<table id="search">
 					<tr>
 						<th>Imię</th>
 						<th>Nazwisko</th>

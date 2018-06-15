@@ -199,6 +199,12 @@ input[type=text] {
 	outline: none;
 }
 
+#search input[type=text] {
+	
+	width: 140px;
+
+}
+
 input[type=password] {
 	width: 250px;
 	padding: 10px 10px;
