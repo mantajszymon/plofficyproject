@@ -54,6 +54,11 @@ public class UserController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	@RequestMapping("/")
+	public String returnToHomePage(Model model) {
+		return "redirect:/homepage";
+	}
+	
 	@RequestMapping({ "/homepage" })
 	public String homePage(Model model, HttpServletRequest req, Principal principal, HttpSession session) {
 
@@ -99,7 +104,7 @@ public class UserController {
 		}
 		
 		LOGGER.info("WPADLEM DO TEJ METODY STEP1");
-		String errorResult = new ValidateUser().validateAllUserFields(user, userRepo);
+		String errorResult = new ValidateUser().validateAllStep1RegisterFields(user, userRepo);
 		
 		if (StringUtils.isBlank(errorResult)) {
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -138,6 +143,14 @@ public class UserController {
 		
 		if (!isAdminUser(session)) {
 			return "denied";
+		}
+		
+		String errorResult = new ValidateUser().validateAllStep2RegisterFields(user, userRepo);
+		if (!StringUtils.isBlank(errorResult)) {
+			model.addAttribute("typ", user.getUserDetails().getTyp());
+			model.addAttribute("user", user);
+			model.addAttribute("errorResult", errorResult);
+			return "users/registerStep2";
 		}
 		
 		user.setStatus("1");
@@ -190,10 +203,10 @@ public class UserController {
 		if (user == null) {
 			user = new User();
 			user.setEmail("mantajszymon@gmail.com");
-			user.setPassword(passwordEncoder.encode("123"));
+			user.setPassword(passwordEncoder.encode("admin123!"));
 			user.setRole("ADMIN");
 			user.setStatus("1");
-			user.setUsername("smantaj");
+			user.setUsername("admin");
 
 			uD.setImie("szymon");
 			uD.setNazwisko("mantaj");
@@ -304,7 +317,7 @@ public class UserController {
 	public boolean isAdminUser(HttpSession session) {
 		if (session.getAttribute("userLogged") != null) {
 			User user = (User) session.getAttribute("userLogged");
-			if (user.getStatus().equalsIgnoreCase("admin"))
+			if (user.getRole().equalsIgnoreCase("admin") && user.getStatus().equals("1"))
 				return true;
 			else
 				return false;

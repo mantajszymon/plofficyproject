@@ -19,7 +19,7 @@
 			<p>Dodawanie uzytkownika</p>
 		</div>
 		</header>
-		<c:if test="${errorResult}">
+		<c:if test="${not empty errorResult}">
 			<p>${errorResult}</p>
 		</c:if>
 
@@ -72,7 +72,7 @@
 							</form:select></td>
 					</tr>
 					<tr>
-						<td><form:label path="userTypeDetails.kierunek"></form:label></td>
+						<td><form:label path="userTypeDetails.kierunek">Kierunek studiów: </form:label></td>
 						<td><form:input path="userTypeDetails.kierunek" value="" /></td>
 					</tr>
 					<tr>
