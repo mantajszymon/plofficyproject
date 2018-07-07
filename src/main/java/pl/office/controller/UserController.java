@@ -55,7 +55,11 @@ public class UserController {
 	private PasswordEncoder passwordEncoder;
 
 	@RequestMapping("/")
+<<<<<<< HEAD
 	public String redirectToHomePage(){
+=======
+	public String returnToHomePage(Model model) {
+>>>>>>> 63cfe377b0ea7df9ff7b654b19585bab9498a029
 		return "redirect:/homepage";
 	}
 	
@@ -104,7 +108,7 @@ public class UserController {
 		}
 		
 		LOGGER.info("WPADLEM DO TEJ METODY STEP1");
-		String errorResult = new ValidateUser().validateAllUserFields(user, userRepo);
+		String errorResult = new ValidateUser().validateAllStep1RegisterFields(user, userRepo);
 		
 //		if (StringUtils.isBlank(errorResult)) {
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -143,6 +147,14 @@ public class UserController {
 		
 		if (!isAdminUser(session)) {
 			return "denied";
+		}
+		
+		String errorResult = new ValidateUser().validateAllStep2RegisterFields(user, userRepo);
+		if (!StringUtils.isBlank(errorResult)) {
+			model.addAttribute("typ", user.getUserDetails().getTyp());
+			model.addAttribute("user", user);
+			model.addAttribute("errorResult", errorResult);
+			return "users/registerStep2";
 		}
 		
 		user.setStatus("1");
@@ -195,10 +207,10 @@ public class UserController {
 		if (user == null) {
 			user = new User();
 			user.setEmail("mantajszymon@gmail.com");
-			user.setPassword(passwordEncoder.encode("123"));
+			user.setPassword(passwordEncoder.encode("admin123!"));
 			user.setRole("ADMIN");
 			user.setStatus("1");
-			user.setUsername("smantaj");
+			user.setUsername("admin");
 
 			uD.setImie("szymon");
 			uD.setNazwisko("mantaj");
@@ -309,7 +321,11 @@ public class UserController {
 	public boolean isAdminUser(HttpSession session) {
 		if (session.getAttribute("userLogged") != null) {
 			User user = (User) session.getAttribute("userLogged");
+<<<<<<< HEAD
 			if (user.getRole().equalsIgnoreCase("admin"))
+=======
+			if (user.getRole().equalsIgnoreCase("admin") && user.getStatus().equals("1"))
+>>>>>>> 63cfe377b0ea7df9ff7b654b19585bab9498a029
 				return true;
 			else
 				return false;

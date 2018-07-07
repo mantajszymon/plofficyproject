@@ -19,8 +19,13 @@
 			<p>Dodawanie uzytkownika</p>
 		</div>
 		</header>
+<<<<<<< HEAD
 		<c:if test="${errorResult}">
 		<c:out value="errorResult"/>
+=======
+		<c:if test="${not empty errorResult}">
+		<p>${errorResult}</p>
+>>>>>>> 63cfe377b0ea7df9ff7b654b19585bab9498a029
 		</c:if>
 		<form:form action="/register/registerStep1" method="POST" modelAttribute="user">
 			<table>
