@@ -1,7 +1,5 @@
 package pl.office.services;
 
-import java.util.List;
-
 import pl.office.model.PlanZajec;
 
 public class IntegrateWrapperWithPlanZajec {
@@ -13,27 +11,11 @@ public class IntegrateWrapperWithPlanZajec {
 		String eventWrap = "";
 		String staffSurnameWrap = "";
 		String tygodnie = "";
-		String inicjalNazwiskaKropka = "";
+		String inicjalImieniaKropka = "";
 		String startHourWrap = "";
 		String endHourWrap = "";
-		StringBuilder sB = new StringBuilder();
 
-		List<String> listaTygodni = planZajecWrapper.getTygodnieZajec();
-		
-		
-		for (int i = 0; i < listaTygodni.size(); i++) {
-			if (listaTygodni.size() <= 1) {
-				sB.append(listaTygodni.get(i));
-			} else {
-				if (i < listaTygodni.size()) {
-					sB.append(listaTygodni.get(i)).append(",");
-				} else {
-					sB.append(listaTygodni.get(i));
-				}
-			}
-		}
-
-		tygodnie = sB.toString();
+		tygodnie = planZajecWrapper.getTygodnieZajec();
 
 		startHourWrap = planZajecWrapper.getGodzinaRozpoczeciaHour() + ":"
 				+ planZajecWrapper.getGodzinaRozpoczeciaMinutes();
@@ -42,8 +24,8 @@ public class IntegrateWrapperWithPlanZajec {
 
 		eventWrap = planZajecWrapper.getDzienTygodnia() + " " + startHourWrap + "-" + endHourWrap + " " + tygodnie;
 
-		inicjalNazwiskaKropka = planZajecWrapper.getNazwiskoProwadzacego().substring(0, 1) + ".";
-		staffSurnameWrap = planZajecWrapper.getImieProwadzacego() + " " + inicjalNazwiskaKropka;
+		inicjalImieniaKropka = planZajecWrapper.getImieProwadzacego().substring(0, 1) + ".";
+		staffSurnameWrap = planZajecWrapper.getNazwiskoProwadzacego() + " " + inicjalImieniaKropka;
 
 		planZajec.setEvent(eventWrap);
 		planZajec.setEventCategory(planZajecWrapper.getKategoria());

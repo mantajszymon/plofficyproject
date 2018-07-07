@@ -1,0 +1,50 @@
+DOKUMENTACJA APLIKACJI PROJEKT KOMPETENCYJNY
+
+Wykonali: 
+Szymon Mantaj 195012
+Mariusz Chalczynski 202127
+
+Zalozenia:
+- aplikacja webowa w jezyku Java, wersja 8, spieta z narzedziami takimi jak: Hibernate, SpringBoot. Wykorzystane technologie:
+JSP, MVC, Maven, Spring, SpringBoot, Tomcat (embeded), Hibernate, Java8, JSP, CSS, HTML.
+- Celem aplikacji bylo zarzadzanie danymi uzytkownikow wraz z formularzem do dodawania osob do bazy danych, dodatkowo z mozliwoscia generowania PDF z planami zajec dla wykladowcow.
+
+NIE UDALO SIE:
+- Nie zostalo zrealizowane tworzenie planow zajec w formacie PDF dla wykladowcow - spowodowane glownie brakiem czasu przez obowiazki zwiazane z praca poza uczelnia.
+
+
+FOLDER ZAWIERA:
+- instrukcja uruchamiania
+- plik ploffice-0.0.1-SNAPSHOT.war ze zbudowana aplikacja gotowa do uruchomienia
+- pliki konfiguracyjne
+- pliki statyczne
+- kod zrodlowy aplikacji
+
+
+INSTRUKCJA URUCHAMIANIA
+
+- Utworzyc folder docelowy w ktorym bedzie uruchomiona aplikacja (od teraz nazywany [APP_HOME]).
+- Utworzyc w [APP_HOME] folder static/ i config/
+- Plik application.properties umieścić wewnatrz folderu config/.
+- Utworzyc baze danych na potrzeby aplikacji. (Tabele w bazie danych zostana automatycznie wygenerowane przez aplikacje, potrzebna jest wylacznie baza danych.)
+- Wyedytowac odpowiednie wartosci w pliku application.properties :
+	- spring.datasource.url = jdbc:mysql://localhost:3306/[NAZWA_BAZY_DANYCH]?useSSL=false
+	- spring.datasource.username = [UZYTKOWNIK_DO_BAZY]
+	- spring.datasource.password = [HASLO_DO_BAZY]
+	- static.content: [SCIEZKA_DO_FOLDERU_STATIC]
+- Zapisac zmiany i zamknac plik.
+- Przeniesc zawartosc folderu "pliki_statyczne" do folderu static/
+- Upewnij sie ze wersja JAVA zainstalowanej na Twoim systemie to "1.8" - aplikacja zawiera metody zaimplementowane w wersji 1.8, aplikacja nie uruchomi sie z nizsza wersja (lub wystapi niepozadane dzialanie).
+- Przenies plik ploffice-0.0.1-SNAPSHOT.war do [APP_HOME]
+- Uruchom aplikacje poprzez wykonanie w terminalu komendy "java -jar ploffice-0.0.1-SNAPSHOT.war"
+- Po poprawnym deployu aplikacji powinienes zobaczyc z terminalu literal:
+	Started PlofficeApplication in XX.XXX seconds (JVM running for XX.XXX)
+- Wlacz przegladarke aby dostac sie na adres aplikacji (domyslnie (bez apache2) adres to: localhost:8080/)
+- W przegladarce przejdz na adres (domyslnie) localhost:8080/secret
+- Po wykonaniu tej metody aplikacja tworzy sekretnego uzytkownika z danymi:
+	login: admin
+	haslo: admin123!
+- Zaloguj sie do aplikacji przez wykorzystanie w/w danych. 
+
+Repozytorium do kodu zrodlwego znajduje sie pod adresem:
+https://github.com/mantajszymon/plofficyproject/

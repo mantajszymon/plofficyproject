@@ -8,15 +8,15 @@
 	rel="stylesheet">
 <link type="text/css" rel="stylesheet" href="/styles/styles.css" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>Dodawanie uzytkownika</title>
+<title>Dodawanie zajęć</title>
 </head>
 <body>
 	<div class="page-wrap">
 		<header>
-		<div id="head">Dodawanie zajęć</div>
+		<div id="head"><p>Dodawanie zajęć</p></div>
 		</header>
 
-		Użytkownik został dodany.
+		Zajęcia zostały dodane.
 		<form action="/homepage" method="POST">
 			<button type="submit">POWROT</button>
 		</form>

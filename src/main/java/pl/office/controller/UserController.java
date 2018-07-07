@@ -54,6 +54,11 @@ public class UserController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	@RequestMapping("/")
+	public String redirectToHomePage(){
+		return "redirect:/homepage";
+	}
+	
 	@RequestMapping({ "/homepage" })
 	public String homePage(Model model, HttpServletRequest req, Principal principal, HttpSession session) {
 
@@ -101,15 +106,15 @@ public class UserController {
 		LOGGER.info("WPADLEM DO TEJ METODY STEP1");
 		String errorResult = new ValidateUser().validateAllUserFields(user, userRepo);
 		
-		if (StringUtils.isBlank(errorResult)) {
+//		if (StringUtils.isBlank(errorResult)) {
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
 			session.setAttribute("user", user);
 			model.addAttribute("user", user);
 			return "redirect:/register/registerStep2";
-		} else {
+		/*} else {
 			model.addAttribute("errorResult", errorResult);
 			return "users/registerStep1";
-		}
+		}*/
 	}
 
 	@GetMapping("/register/registerStep2")
@@ -304,7 +309,7 @@ public class UserController {
 	public boolean isAdminUser(HttpSession session) {
 		if (session.getAttribute("userLogged") != null) {
 			User user = (User) session.getAttribute("userLogged");
-			if (user.getStatus().equalsIgnoreCase("admin"))
+			if (user.getRole().equalsIgnoreCase("admin"))
 				return true;
 			else
 				return false;

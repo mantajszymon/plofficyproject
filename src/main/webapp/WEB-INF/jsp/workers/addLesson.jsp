@@ -19,9 +19,12 @@
 		<div id="head">
 			<p>Dodawanie zajęć</p>
 		</div>
-		</header>
+
+		<c:if test="${not empty message}">
+			<p>${message}</p>
+		</c:if> </header>
 		<form id="planZajecForm" action="/workers/dodajZajecia" method="POST">
-			<input name="workerId" value="1" type="hidden">
+			<input name="workerId" value="${workerId}" type="hidden">
 			<table>
 				<tbody>
 					<tr>
@@ -31,7 +34,7 @@
 								<option value="Pn" selected="selected">Poniedziałek</option>
 								<option value="Wt">Wtorek</option>
 								<option value="Śr">Środa</option>
-								<option value="Czw">Czwartek</option>
+								<option value="Cz">Czwartek</option>
 								<option value="Pt">Piątek</option>
 								<option value="Sb">Sobota</option>
 								<option value="Nd">Niedziela</option>
@@ -41,16 +44,8 @@
 						<td>Godzina rozpoczecia</td>
 						<td><select id="PlanZajecWrapper.godzinaRozpoczeciaHour"
 							name="PlanZajecWrapper.godzinaRozpoczeciaHour">
-								<option value="00" selected="selected">00</option>
-								<option value="01">01</option>
-								<option value="02">02</option>
-								<option value="03">03</option>
-								<option value="04">04</option>
-								<option value="05">05</option>
-								<option value="06">06</option>
-								<option value="07">07</option>
-								<option value="08">08</option>
-								<option value="09">09</option>
+								<option value="8" selected="selected">8</option>
+								<option value="9">9</option>
 								<option value="10">10</option>
 								<option value="11">11</option>
 								<option value="12">12</option>
@@ -61,72 +56,9 @@
 								<option value="17">17</option>
 								<option value="18">18</option>
 								<option value="19">19</option>
-								<option value="20">20</option>
-								<option value="21">21</option>
-								<option value="22">22</option>
-								<option value="23">23</option>
 						</select> <select id="PlanZajecWrapper.godzinaRozpoczeciaMinutes"
 							name="PlanZajecWrapper.godzinaRozpoczeciaMinutes">
-								<option value="00" selected="selected">00</option>
-								<option value="01">01</option>
-								<option value="02">02</option>
-								<option value="03">03</option>
-								<option value="04">04</option>
-								<option value="05">05</option>
-								<option value="06">06</option>
-								<option value="07">07</option>
-								<option value="08">08</option>
-								<option value="09">09</option>
-								<option value="10">10</option>
-								<option value="11">11</option>
-								<option value="12">12</option>
-								<option value="13">13</option>
-								<option value="14">14</option>
-								<option value="15">15</option>
-								<option value="16">16</option>
-								<option value="17">17</option>
-								<option value="18">18</option>
-								<option value="19">19</option>
-								<option value="20">20</option>
-								<option value="21">21</option>
-								<option value="22">22</option>
-								<option value="23">23</option>
-								<option value="24">24</option>
-								<option value="25">25</option>
-								<option value="26">26</option>
-								<option value="27">27</option>
-								<option value="28">28</option>
-								<option value="29">29</option>
-								<option value="30">30</option>
-								<option value="31">31</option>
-								<option value="32">32</option>
-								<option value="33">33</option>
-								<option value="34">34</option>
-								<option value="35">35</option>
-								<option value="36">36</option>
-								<option value="37">37</option>
-								<option value="38">38</option>
-								<option value="39">39</option>
-								<option value="40">40</option>
-								<option value="41">41</option>
-								<option value="42">42</option>
-								<option value="43">43</option>
-								<option value="44">44</option>
-								<option value="45">45</option>
-								<option value="46">46</option>
-								<option value="47">47</option>
-								<option value="48">48</option>
-								<option value="49">49</option>
-								<option value="50">50</option>
-								<option value="51">51</option>
-								<option value="52">52</option>
-								<option value="53">53</option>
-								<option value="54">54</option>
-								<option value="55">55</option>
-								<option value="56">56</option>
-								<option value="57">57</option>
-								<option value="58">58</option>
-								<option value="59">59</option>
+								<option value="15" selected="selected">15</option>
 						</select></td>
 
 					</tr>
@@ -134,16 +66,7 @@
 						<td>Godzina zakonczenia</td>
 						<td><select id="PlanZajecWrapper.godzinaZakonczeniaHour"
 							name="PlanZajecWrapper.godzinaZakonczeniaHour">
-								<option value="00" selected="selected">00</option>
-								<option value="01">01</option>
-								<option value="02">02</option>
-								<option value="03">03</option>
-								<option value="04">04</option>
-								<option value="05">05</option>
-								<option value="06">06</option>
-								<option value="07">07</option>
-								<option value="08">08</option>
-								<option value="09">09</option>
+								<option value="9" selected="selected">9</option>
 								<option value="10">10</option>
 								<option value="11">11</option>
 								<option value="12">12</option>
@@ -155,79 +78,28 @@
 								<option value="18">18</option>
 								<option value="19">19</option>
 								<option value="20">20</option>
-								<option value="21">21</option>
-								<option value="22">22</option>
-								<option value="23">23</option>
 						</select> <select id="PlanZajecWrapper.godzinaZakonczeniaMinutes"
 							name="PlanZajecWrapper.godzinaZakonczeniaMinutes">
 								<option value="00" selected="selected">00</option>
-								<option value="01">01</option>
-								<option value="02">02</option>
-								<option value="03">03</option>
-								<option value="04">04</option>
-								<option value="05">05</option>
-								<option value="06">06</option>
-								<option value="07">07</option>
-								<option value="08">08</option>
-								<option value="09">09</option>
-								<option value="10">10</option>
-								<option value="11">11</option>
-								<option value="12">12</option>
-								<option value="13">13</option>
-								<option value="14">14</option>
-								<option value="15">15</option>
-								<option value="16">16</option>
-								<option value="17">17</option>
-								<option value="18">18</option>
-								<option value="19">19</option>
-								<option value="20">20</option>
-								<option value="21">21</option>
-								<option value="22">22</option>
-								<option value="23">23</option>
-								<option value="24">24</option>
-								<option value="25">25</option>
-								<option value="26">26</option>
-								<option value="27">27</option>
-								<option value="28">28</option>
-								<option value="29">29</option>
-								<option value="30">30</option>
-								<option value="31">31</option>
-								<option value="32">32</option>
-								<option value="33">33</option>
-								<option value="34">34</option>
-								<option value="35">35</option>
-								<option value="36">36</option>
-								<option value="37">37</option>
-								<option value="38">38</option>
-								<option value="39">39</option>
-								<option value="40">40</option>
-								<option value="41">41</option>
-								<option value="42">42</option>
-								<option value="43">43</option>
-								<option value="44">44</option>
-								<option value="45">45</option>
-								<option value="46">46</option>
-								<option value="47">47</option>
-								<option value="48">48</option>
-								<option value="49">49</option>
-								<option value="50">50</option>
-								<option value="51">51</option>
-								<option value="52">52</option>
-								<option value="53">53</option>
-								<option value="54">54</option>
-								<option value="55">55</option>
-								<option value="56">56</option>
-								<option value="57">57</option>
-								<option value="58">58</option>
-								<option value="59">59</option>
 						</select></td>
 					</tr>
 					<tr>
 						<td>Tygodnie zajęć</td>
 						<td><input id="PlanZajecWrapper.tygodnieZajec1"
-							name="PlanZajecWrapper.tygodnieZajec" value="1" type="checkbox"><input
+							name="PlanZajecWrapper.tygodnieZajec" value="2,4,6,8,10,12,14"
+							type="checkbox"> <input
 							name="_PlanZajecWrapper.tygodnieZajec" value="on" type="hidden">
-							1</td>
+							parzyste</td>
+						<td><input id="PlanZajecWrapper.tygodnieZajec1"
+							name="PlanZajecWrapper.tygodnieZajec" value="1,3,5,7,9,11,13,15"
+							type="checkbox"> <input
+							name="_PlanZajecWrapper.tygodnieZajec" value="on" type="hidden">
+							nieparzyste</td>
+						<td><input id="PlanZajecWrapper.tygodnieZajec1"
+							name="PlanZajecWrapper.tygodnieZajec" value="1-15"
+							type="checkbox"> <input
+							name="_PlanZajecWrapper.tygodnieZajec" value="on" type="hidden">
+							cotygodniowe</td>
 					</tr>
 					<tr>
 						<td>Kategoria</td>

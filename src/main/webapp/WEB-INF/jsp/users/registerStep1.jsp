@@ -19,11 +19,8 @@
 			<p>Dodawanie uzytkownika</p>
 		</div>
 		</header>
-		<c:if test="${exists}">
-		Użytkownik o podanym adresie e-mail/loginie istnieje w bazie.
-	</c:if>
-		<c:if test="${isValidEmail eq false}">
-		Podaj prawidłowy email
+		<c:if test="${errorResult}">
+		<c:out value="errorResult"/>
 		</c:if>
 		<form:form action="/register/registerStep1" method="POST" modelAttribute="user">
 			<table>

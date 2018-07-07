@@ -1,7 +1,5 @@
 package pl.office.services;
 
-import java.util.List;
-
 public class PlanZajecWrapper {
 
 	private String dzienTygodnia;
@@ -9,7 +7,7 @@ public class PlanZajecWrapper {
 	private String godzinaRozpoczeciaMinutes;
 	private String godzinaZakonczeniaHour;
 	private String godzinaZakonczeniaMinutes;
-	private List<String> tygodnieZajec;
+	private String tygodnieZajec;
 	private String kategoria;
 	private String waga;
 	private String nazwaZajec;
@@ -29,10 +27,10 @@ public class PlanZajecWrapper {
 	public void setDzienTygodnia(String dzienTygodnia) {
 		this.dzienTygodnia = dzienTygodnia;
 	}
-	public List<String> getTygodnieZajec() {
+	public String getTygodnieZajec() {
 		return tygodnieZajec;
 	}
-	public void setTygodnieZajec(List<String> tygodnieZajec) {
+	public void setTygodnieZajec(String tygodnieZajec) {
 		this.tygodnieZajec = tygodnieZajec;
 	}
 	public String getKategoria() {
